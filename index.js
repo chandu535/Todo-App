@@ -4,16 +4,17 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const TodoTask = require("./models/TodoTask");
 
-dotenv.config();
+dotenv.config(); //==>>
 
 app.use("/static", express.static("public"));
-app.use(express.urlencoded({ extended : true }));
+app.use(express.urlencoded({ extended : true }));    // ==>
 
 
-// mongoose.set("userFindAndModify", false); 
+
+// mongoose.set("userFindAndModify", false);
 mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true },() => {
     console.log("Connected to db!");
-    app.listen(9000, () => console.log("Server up and ruuning"));
+    app.listen(9000, () => console.log("Server up and ruuning"));  //==>>>
 });
 
 app.set("view engine", "ejs");
@@ -27,9 +28,7 @@ app.get("/",(req,res) => {
 
 // POST method
 app.post("/", async(req,res) => {
-    const todoTask = new TodoTask({
-        content: req.body.content
-    });
+    const todoTask = new TodoTask({content: req.body.content});
     try{
         await todoTask.save();
         res.redirect("/");
